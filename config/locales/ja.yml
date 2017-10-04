@@ -1,0 +1,10 @@
+# config/locales/ja.yml
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        name: 名前
+        user_id: ユーザーID
+        password: パスワード
