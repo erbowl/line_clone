@@ -1,0 +1,13 @@
+%nav.navbar.navbar-default
+  .navbar-header
+    %a.navbar-brand{:href => "#"} LINE CLONE
+    %button.navbar-toggle{"data-target" => "#gnav", "data-toggle" => "collapse", :type => "button"}
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+  #gnav.collapse.navbar-collapse
+    %ul.nav.navbar-right.navbar-nav
+      -if user_signed_in?
+        %li
+          = link_to "ログアウト", destroy_user_session_path, method: :delete, :class => 'navbar-link'
+      -else

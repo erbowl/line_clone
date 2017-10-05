@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    = render 'layouts/head'
+    = stylesheet_link_tag 'chat', media: 'all', 'data-turbolinks-track': 'reload'
+    %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", :rel => "stylesheet"}/
+  %body
+    -# = render 'layouts/navbar'
+    = yield
