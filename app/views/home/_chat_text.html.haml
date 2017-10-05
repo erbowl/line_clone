@@ -1,0 +1,14 @@
+-# is_sender,message,time
+
+-if is_sender
+  -add_class="sender"
+-else
+  -add_class="receiver"
+
+.row.message-body
+  .col-sm-12{:class => "message-main-"+add_class}
+    %div{:class => add_class}
+      .message-text
+        =message
+      %span.message-time.pull-right
+        =time

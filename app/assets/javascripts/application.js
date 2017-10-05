@@ -13,5 +13,43 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require rails-ujs
-//= require turbolinks
+
 //= require_tree .
+
+ // $("#hogehoge").keydown(function(e){
+ //
+ // });
+
+$(function(){
+  $("#comment").keydown(function(e){
+    if(!send_message(e)){
+      return false;
+    }
+  });
+  // document.getElementById('comment').addEventListener('keydown', send_message);
+});
+
+
+function send_message(e) {
+  // return false;
+  if ( e.keyCode !== 13 || ( e.keyCode === 13 && (e.shiftKey === true || e.ctrlKey === true || e.altKey === true) )) { // Enterキー除外
+    return true;
+  }
+  message=$("#comment").val();
+  $("#comment").val("");
+  if(message.length>0){
+
+    $send_temp=$("#chat_template_sender").children().clone();
+    $send_temp.find(".message-text").html(message.replace(/\r?\n/g, "<br>"));
+
+    var now= new Date();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    $send_temp.find("span.message-time").text(hour+":"+minute);
+
+    $("#conversation").append($send_temp);
+    $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
+  }
+  return false;
+}
