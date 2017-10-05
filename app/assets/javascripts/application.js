@@ -21,17 +21,17 @@
  // });
 
 $(function(){
+  $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
+
   $("#comment").keydown(function(e){
     if(!send_message(e)){
       return false;
     }
   });
-  // document.getElementById('comment').addEventListener('keydown', send_message);
 });
 
 
 function send_message(e) {
-  // return false;
   if ( e.keyCode !== 13 || ( e.keyCode === 13 && (e.shiftKey === true || e.ctrlKey === true || e.altKey === true) )) { // Enterキー除外
     return true;
   }
@@ -46,7 +46,7 @@ function send_message(e) {
     var hour = now.getHours();
     var minute = now.getMinutes();
     var second = now.getSeconds();
-    $send_temp.find("span.message-time").text(hour+":"+minute);
+    $send_temp.find(".message-time").text(hour+":"+minute);
 
     $("#conversation").append($send_temp);
     $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
