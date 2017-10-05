@@ -282,58 +282,19 @@
         %i.fa.fa-ellipsis-v.fa-2x.pull-right{"aria-hidden" => "true"}
       = link_to "ログアウト", destroy_user_session_path, method: :delete, :class => 'navbar-link'
     #conversation.row.message
-      .row.message-previous
-        .col-sm-12.previous
-          %a#ankitjain28{:name => "20", :onclick => "previous(this)"}
-            Show Previous Message!
       .hidden
         #chat_template_sender
           =render "chat_text",{message:"asdfasdf",time:"asdfasdf",is_sender:true}
         #chat_template_receiver
           =render "chat_text",{message:"asdfasdf",time:"asdfasdf",is_sender:false}
-      .row.message-body
-        .col-sm-12.message-main-receiver
-          .receiver
-            .message-text
-              Hi, what are you doing?!
-            %span.message-time.pull-right
-              Sun
       -for i in 1..20
         =render "chat_text",{message:"こんにちは。よろしくお願いします。",time:"10:12",is_sender:false}
-        -# .row.message-body
-        -#   .col-sm-12.message-main-sender
-        -#     .sender
-        -#       .message-text
-        -#         I am doing nothing man!
-        -#       %span.message-time.pull-right
-        -#         18:12
-
     .row.reply
       .col-sm-1.col-xs-1.reply-emojis
         %i.fa.fa-smile-o.fa-2x
       .col-sm-9.col-xs-9.reply-main
-        %textarea#comment.form-control{:rows => "1"}
+        %textarea#comment.form-control{:rows => "3"}
       .col-sm-1.col-xs-1.reply-recording
         %i.fa.fa-microphone.fa-2x{"aria-hidden" => "true"}
       .col-sm-1.col-xs-1.reply-send
         %i.fa.fa-send.fa-2x{"aria-hidden" => "true"}
-
-
--# .row
--#   .col-md-3.col-md-offset-1
--#     %h1 Home#index
--#     %p Find me in app/views/home/index.html.haml
--#     %hr
--#     - for i in 1..5
--#       .media
--#         .media-left
--#           %a{:href => "#"}
--#             %img.media-object{:alt => "...", :src => "/assets/sample.jpg"}/
--#         .media-body
--#           %h4.media-heading
--#             Media heading
--#             %span.badge
--#               14
--#           うんたらかんたら。うんたらかんたら、うんたあらっｋなんら。
--#       %hr
--#   .col-md-8
