@@ -23,6 +23,16 @@
 $(function(){
   $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
 
+  $('.row.sideBar-body').on('click',function(){
+     $(this).addClass("sideBar-active");
+     $(this).siblings().removeClass("sideBar-active");
+
+   });
+
+   $(document).on('click','.row.message-body',function(){
+      $(this).find(".message-time.col-sm-12").toggleClass("hidden");
+    });
+
   $("#comment").keydown(function(e){
     if(!send_message(e)){
       return false;
@@ -44,8 +54,7 @@ function send_message(e) {
 
     var now= new Date();
     var hour = now.getHours();
-    var minute = now.getMinutes();
-    var second = now.getSeconds();
+    var minute = ("0"+now.getMinutes()).slice(-2);  
     $send_temp.find(".message-time").text(hour+":"+minute);
 
     $("#conversation").append($send_temp);

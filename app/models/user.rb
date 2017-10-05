@@ -7,4 +7,7 @@ class User < ApplicationRecord
   validates :user_id, presence: true,length: { minimum: 4 }
   validates_format_of :user_id,:with => /\A[A-Za-z0-9]+\z/, :message =>"は半角英数字で入力してください。"
   validates_uniqueness_of :user_id
+  has_many :room_users
+  has_many :rooms,through: :room_users
+  has_many :chats
 end

@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
     if user_signed_in?
+      @users=User.all
       render layout:"chat"
     else
       authenticate_user!

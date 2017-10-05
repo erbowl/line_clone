@@ -8,9 +8,15 @@
   -text_align="left"
 
 .row.message-body
-  .col-sm-12{:class => "message-main-"+add_class}
+
+  -if !is_sender
+    .col-sm-12
+      けい
+    .col-sm-1
+      %img.message-icon{:src => "https://bootdey.com/img/Content/avatar/avatar5.png"}
+  .col-sm-11{:class => "message-main-"+add_class}
     %div{:class => add_class}
       .message-text
         =message
-    .message-time.col-sm-12{:class => "text-"+text_align}
+    .message-time.col-sm-12.hidden{:class => "text-"+text_align}
       =time
