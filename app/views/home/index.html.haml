@@ -16,7 +16,16 @@
             %input#searchText.form-control{:name => "searchText", :placeholder => "Search", :type => "text"}/
             %span.glyphicon.glyphicon-search.form-control-feedback
       .row.sideBar
-        =render :partial => "user", :collection => @users
+        %ul.nav.nav-tabs
+          %li.active
+            %a{"data-toggle" => "tab", :href => "#tab1"} Rooms
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab2"} Users
+        #myTabContent.tab-content
+          #tab1.tab-pane.fade.in.active
+            =render :partial => "room", :collection => current_user.rooms
+          #tab2.tab-pane.fade
+            =render :partial => "user", :collection => User.all
     .side-two
       .row.newMessage-heading
         .row.newMessage-main
@@ -156,20 +165,13 @@
         .heading-avatar-icon
           %img{:src => "https://bootdey.com/img/Content/avatar/avatar6.png"}/
       .col-sm-8.col-xs-7.heading-name
-        %a.heading-name-meta
-          John Doe
+        %a.heading-name-meta#room_name
+          Roomを選択してください。
         %span.heading-online Online
       .col-sm-1.col-xs-1.heading-dot.pull-right
         %i.fa.fa-ellipsis-v.fa-2x.pull-right{"aria-hidden" => "true"}
       = link_to "ログアウト", destroy_user_session_path, method: :delete, :class => 'navbar-link'
     #conversation.row.message
-      .hidden
-        #chat_template_sender
-          =render "chat_text",{message:"asdfasdf",time:"asdfasdf",is_sender:true}
-        #chat_template_receiver
-          =render "chat_text",{message:"asdfasdf",time:"asdfasdf",is_sender:false}
-      -for i in 1..20
-        =render "chat_text",{message:"こんにちは。よろしくお願いします。",time:"10:12",is_sender:false}
     .row.reply
       .col-sm-1.col-xs-1.reply-emojis
         %i.fa.fa-smile-o.fa-2x
@@ -179,3 +181,26 @@
         %i.fa.fa-microphone.fa-2x{"aria-hidden" => "true"}
       .col-sm-1.col-xs-1.reply-send
         %i.fa.fa-send.fa-2x{"aria-hidden" => "true"}
+
+.hidden
+  = form_tag({:controller => 'home', :action => 'get_room'}, :remote => true, :class => 'form-ajax',:id=>"get_room_form") do
+    = hidden_field_tag :ajax_handler, 'get_room'
+    = hidden_field_tag :user, ''
+    = hidden_field_tag :room, ''
+    = submit_tag '',:id=>"get_room"
+  = form_tag({:controller => 'home', :action => 'get_chat'}, :remote => true, :class => 'form-ajax',:id=>"get_chat_form") do
+    = hidden_field_tag :ajax_handler, 'get_chat'
+    = hidden_field_tag :user_id, ''
+    = hidden_field_tag :room_id, ''
+    = hidden_field_tag :content, ''
+    = submit_tag '',:id=>"get_chat"
+  %input{:value=>current_user.id,:id=>"my_user_id"}
+  -# TODO: どうにかす。
+  %input{:value=>"どうにかしたい",:id=>"room_id"}
+  #chat_template_sender
+    -chat_sample=current_user.chats.build(content:"サンプル");
+    =render "chat",chat:chat_sample
+  -# #chat_template_receiver
+    -chat={content:"asdfasdf",created_at:"asdfasdf",user:current_user}
+    =render "chat_text",{chat:chat,currfent_user:current_user}
+    -chat={message:"こんにちは。よろしくお願いします。",time:"10:12",is_sender:false}

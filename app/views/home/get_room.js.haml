@@ -1,0 +1,3 @@
+$("#conversation").html("#{j(render :partial=>'chat',:collection=>@room.chats)}");
+$("#room_id").val("#{@room.id}");
+$("#room_name").text("#{@room.inspect}");

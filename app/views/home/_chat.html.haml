@@ -1,4 +1,6 @@
--# is_sender,message,time
+-is_sender=false
+-if current_user==chat.user
+  -is_sender=true
 
 -if is_sender
   -add_class="sender"
@@ -8,15 +10,14 @@
   -text_align="left"
 
 .row.message-body
-
   -if !is_sender
     .col-sm-12
-      けい
+      =chat.user.name
     .col-sm-1
       %img.message-icon{:src => "https://bootdey.com/img/Content/avatar/avatar5.png"}
   .col-sm-11{:class => "message-main-"+add_class}
     %div{:class => add_class}
       .message-text
-        =message
+        =chat.content
     .message-time.col-sm-12.hidden{:class => "text-"+text_align}
-      =time
+      =chat.created_at
