@@ -18,6 +18,6 @@
   .col-sm-11{:class => "message-main-"+add_class}
     %div{:class => add_class}
       .message-text
-        =chat.content
+        =simple_format(h(chat.content))
     .message-time.col-sm-12.hidden{:class => "text-"+text_align}
       =chat.created_at

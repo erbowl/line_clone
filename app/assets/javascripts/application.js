@@ -16,13 +16,10 @@
 
 //= require_tree .
 
- // $("#hogehoge").keydown(function(e){
- //
- // });
-
 $(function(){
-  $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
 
+
+  $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
   $('.row.sideBar-body').on('click',function(){
      $(this).addClass("sideBar-active");
      $(this).siblings().removeClass("sideBar-active");
@@ -46,12 +43,6 @@ $(function(){
    $(document).on('click','.row.message-body',function(){
       $(this).find(".message-time.col-sm-12").toggleClass("hidden");
     });
-
-  $("#comment").keydown(function(e){
-    if(!send_message(e)){
-      return false;
-    }
-  });
 });
 
 
@@ -81,4 +72,35 @@ function send_message(e) {
     $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
   }
   return false;
+}
+
+function webrtc(peer_id,room_id){
+
+  const peer = new Peer(peer_id+"_"+new Date().getTime(),{
+    key:   "db77a719-83fd-4191-a80d-5cc6821706d4",
+    debug: 3
+  });
+  var room
+  peer.on('open',function(){
+    room=peer.joinRoom(room_id,{mode:"sfu",stream:null});
+    room.on('open',function(){
+      $("#comment").keydown(function(e){
+        if(!send_message(e)){
+          room.send({label:"テスト",data:"test"});
+          return false;
+        }
+      });
+
+      room.on("data",function(data){
+        console.log(data);
+        $("#get_room_form").find("[name='room']").val(room_id);
+        $("#get_room_form").find("[name='user']").val("");
+        $("#get_room").click();
+      })
+
+    })
+  })
+
+
+
 }
