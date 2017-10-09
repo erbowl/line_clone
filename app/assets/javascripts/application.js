@@ -24,6 +24,10 @@ $(function(){
   });
   document.peer=peer;
 
+  $(document).on('click','#reload_room',function(){
+    $("#update_left").click();
+  });
+
   peer.on("error",function(){
     alert("エラーが発生しました。");
   })
@@ -31,7 +35,7 @@ $(function(){
   peer.on("open",function(){
 
     $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
-    $('.row.sideBar-body').on('click',function(){
+    $(document).on('click','.row.sideBar-body',function(){
        $(this).addClass("sideBar-active");
        $(this).siblings().removeClass("sideBar-active");
        var name="";
@@ -66,6 +70,25 @@ function webrtc(room_id){
   peer=document.peer;
   var room=peer.joinRoom(room_id,{mode:"sfu",stream:null});
   room.on('open',function(){
+
+    $("#start_tell").click(function(){
+      navigator.mediaDevices.getUserMedia({video:false, audio:true }).then(stream => {
+        document.stream=stream;
+        room.replaceStream(stream);
+      })
+    })
+
+    room.on("stream",function(stream){
+      stream_to_tag(stream);
+      if(!document.stream){
+        navigator.mediaDevices.getUserMedia({video:false, audio:true }).then(stream => {
+          document.stream=stream;
+          room.replaceStream(stream);
+        })
+      }
+    })
+
+
     $("#comment").keydown(function(e){
       if ( e.keyCode !== 13 || ( e.keyCode === 13 && (e.shiftKey === true || e.ctrlKey === true || e.altKey === true) )) { // Enterキー除外
         return true;
@@ -108,9 +131,6 @@ function webrtc(room_id){
         $("#conversation").append($re_temp);
         $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
       }
-      // $("#get_room_form").find("[name='room']").val(room_id);
-      // $("#get_room_form").find("[name='user']").val("");
-      // $("#get_room").click();
     })
   })
 }
@@ -120,4 +140,16 @@ function getNowHHMM(){
   var hour = ("0"+now.getHours()).slice(-2);
   var minute = ("0"+now.getMinutes()).slice(-2);
   return hour+":"+minute;
+}
+
+function stream_to_tag(stream){
+  if($("audio#"+stream.peerId).length==0){
+    $audio=$("<audio>");
+    $("body").append($audio);
+    $audio.attr("src",window.URL.createObjectURL(stream));
+    $audio.attr("id",stream.peerId);
+    $audio.attr("autoplay",true);
+  }else{
+    $("audio#"+stream.peerId).attr("src",window.URL.createObjectURL(stream));
+  }
 }

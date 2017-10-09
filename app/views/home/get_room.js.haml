@@ -2,6 +2,6 @@ $("#conversation").html("#{j(render :partial=>'chat',:collection=>@room.chats)}"
 $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
 if($("#room_id").val()!="#{@room.id}"){
 $("#room_id").val("#{@room.id}");
-$("#room_name").text("#{@room.inspect}");
+$("#room_name").html("Room:#{@room.name}");
 webrtc("#{@room.id}");
 }

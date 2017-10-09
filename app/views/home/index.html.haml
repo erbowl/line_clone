@@ -5,11 +5,12 @@
       .row.heading
         .col-sm-3.col-xs-3.heading-avatar
           .heading-avatar-icon
-            =image_tag current_user.image.to_s            
-        .col-sm-1.col-xs-1.heading-dot.pull-right
-          %i.fa.fa-ellipsis-v.fa-2x.pull-right{"aria-hidden" => "true"}
-        .col-sm-2.col-xs-2.heading-compose.pull-right
-          %i.fa.fa-comments.fa-2x.pull-right{"aria-hidden" => "true"}
+            =image_tag current_user.image.to_s
+        =current_user.name
+      .row.searchBox
+        .col-sm-12.searchBox-inner
+          %btn.btn-lg.btn-success.btn-block.text-center#reload_room
+            更新
       .row.searchBox
         .col-sm-12.searchBox-inner
           .form-group.has-feedback
@@ -173,13 +174,11 @@
       = link_to "ログアウト", destroy_user_session_path, method: :delete, :class => 'navbar-link'
     #conversation.row.message
     .row.reply
-      .col-sm-1.col-xs-1.reply-emojis
-        %i.fa.fa-smile-o.fa-2x
-      .col-sm-9.col-xs-9.reply-main
+      .col-sm-9.col-xs-9.reply-main.col-sm-offset-1.col-xs-offset-1
         %textarea#comment.form-control{:rows => "3"}
       .col-sm-1.col-xs-1.reply-recording
-        %i.fa.fa-microphone.fa-2x{"aria-hidden" => "true"}
-      .col-sm-1.col-xs-1.reply-send
+        %i.fa.fa-phone.fa-2x#start_tell{"aria-hidden" => "true"}
+      -# .col-sm-1.col-xs-1.reply-send
         %i.fa.fa-send.fa-2x{"aria-hidden" => "true"}
 
 .hidden

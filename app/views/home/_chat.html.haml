@@ -13,8 +13,8 @@
   -if !is_sender
     .col-sm-12.chat_name
       =chat.user.name
-    .col-sm-1
-      %img.message-icon{:src => "https://bootdey.com/img/Content/avatar/avatar5.png"}
+    .col-sm-1.chat_image
+      =image_tag chat.user.image.to_s
   .col-sm-11{:class => "message-main-"+add_class}
     %div{:class => add_class}
       .message-text
