@@ -1,5 +1,7 @@
 {
   "name": "line_clone",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "babelify": "^7.3.0"
+  }
 }
