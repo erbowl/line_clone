@@ -3,5 +3,5 @@ $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fas
 if($("#room_id").val()!="#{@room.id}"){
 $("#room_id").val("#{@room.id}");
 $("#room_name").text("#{@room.inspect}");
-webrtc("#{current_user.user_id}","#{@room.id}");
+webrtc("#{@room.id}");
 }

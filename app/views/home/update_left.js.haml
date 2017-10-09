@@ -1,0 +1,2 @@
+$("#tab1").html("#{j(render :partial => "room", :collection => current_user.rooms)}");
+$("#tab2").html("#{j(render :partial => "user", :collection => User.all)}");

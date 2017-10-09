@@ -5,6 +5,10 @@
   %body
     = render 'layouts/navbar'
     .container
+      - flash.each do |key, value|
+        - key = "info" if key == "notice"
+        - key = "danger"  if key == "alert"
+        = content_tag :div, value, class: "alert alert-#{key}"
       .row
         .col-md-4.col-md-offset-4
           = yield

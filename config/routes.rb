@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "home#index"
   post "get_room",to:"home#get_room"
   post "get_chat",to:"home#get_chat"
+  post "update_left",to:"home#update_left"
 
 
 

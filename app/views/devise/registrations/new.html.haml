@@ -5,6 +5,7 @@
   = f.password_field :password, autocomplete: "off",placeholder:"6文字以上で入力してください"
   = f.password_field :password_confirmation, autocomplete: "off"
   = f.text_field :name,placeholder:"このアプリで表示される名前です。"
-  = f.text_field :user_id,placeholder:"このアプリで使用されるIDです"  
+  = f.text_field :user_id,placeholder:"このアプリで使用されるIDです"
+  = f.file_field :image
   = f.submit "Sign up",:class=>"btn btn-info btn-block"
 = render "devise/shared/links"

@@ -11,7 +11,7 @@
 
 .row.message-body
   -if !is_sender
-    .col-sm-12
+    .col-sm-12.chat_name
       =chat.user.name
     .col-sm-1
       %img.message-icon{:src => "https://bootdey.com/img/Content/avatar/avatar5.png"}
@@ -20,4 +20,7 @@
       .message-text
         =simple_format(h(chat.content))
     .message-time.col-sm-12.hidden{:class => "text-"+text_align}
-      =chat.created_at
+      -if chat.created_at
+        =chat.created_at.strftime('%H:%M')
+      -else
+        time

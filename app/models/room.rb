@@ -11,7 +11,8 @@ class Room < ApplicationRecord
     }.compact[0]
 
     if room.blank?
-      room=Room.create()
+      name=User.where(id:user_ids).map{|e|e.name}.join("&")
+      room=Room.create(name:name)
       room.users<<User.where(id:user_ids)
     end
 

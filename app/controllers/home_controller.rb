@@ -23,7 +23,11 @@ class HomeController < ApplicationController
   def get_chat
     if params[:ajax_handler] == 'get_chat'
       Chat.create(content:params[:content],user_id:params[:user_id],room_id:params[:room_id])
+      head :no_content
     end
+  end
+
+  def update_left
   end
 
 end
