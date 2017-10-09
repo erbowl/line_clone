@@ -101,13 +101,13 @@ function webrtc(room_id){
         var room_id=$("#room_id").val();
         var time=getNowHHMM();
         var my_name=$("#my_name").val();
-
+        var image=$("#my_image").val();
         $("#get_chat_form").find("[name='user_id']").val(my_id);
         $("#get_chat_form").find("[name='content']").val(message);
         $("#get_chat_form").find("[name='room_id']").val(room_id);
         $("#get_chat").click();
 
-        room.send({label:"message",data:{user_name:my_name,room_id:room_id,time:time,message:message}});
+        room.send({label:"message",data:{user_name:my_name,room_id:room_id,time:time,message:message,image:image}});
 
         $send_temp=$("#chat_template_sender").children().clone();
         $send_temp.find(".message-text").html(message.replace(/\r?\n/g, "<br>"));
@@ -123,11 +123,14 @@ function webrtc(room_id){
         var message=data.data.data.message;
         var time=data.data.data.time;
         var user_name=data.data.data.user_name;
+        var image= data.data.data.image;
 
         $re_temp=$("#chat_template_receiver").children().clone();
         $re_temp.find(".message-text").html(message.replace(/\r?\n/g, "<br>"));
         $re_temp.find(".message-time").text(time);
         $re_temp.find(".chat_name").text(user_name);
+        $re_temp.find(".chat_image>img").src(image);
+
         $("#conversation").append($re_temp);
         $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
       }

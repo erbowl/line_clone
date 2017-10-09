@@ -198,6 +198,7 @@
     = submit_tag '',:id=>"update_left"
   %input{:value=>current_user.id,:id=>"my_user_id"}
   %input{:value=>current_user.name,:id=>"my_name"}
+  %input{:value=>current_user.image.url,:id=>"my_image"}
   %input{:value=>"",:id=>"room_id"}
   #chat_template_sender
     -chat_sample=current_user.chats.build(content:"サンプル");
