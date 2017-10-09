@@ -30,7 +30,7 @@ $(function(){
 
   peer.on("error",function(){
     alert("エラーが発生しました。");
-  })
+  });
 
   peer.on("open",function(){
 
@@ -50,7 +50,7 @@ $(function(){
            return false;
          }
        }else{
-         name="user"
+         name="user";
          name2="room";
          value=$(this).find("#"+name+"_id_left").text().trim();
        }
@@ -62,7 +62,7 @@ $(function(){
        $(this).find(".message-time.col-sm-12").toggleClass("hidden");
      });
 
-  })
+  });
 });
 
 
@@ -72,21 +72,21 @@ function webrtc(room_id){
   room.on('open',function(){
 
     $("#start_tell").click(function(){
-      navigator.mediaDevices.getUserMedia({video:false, audio:true }).then(stream => {
+      navigator.mediaDevices.getUserMedia({video:false, audio:true }).then(function(stream){
         document.stream=stream;
         room.replaceStream(stream);
-      })
-    })
+      });
+    });
 
     room.on("stream",function(stream){
       stream_to_tag(stream);
       if(!document.stream){
-        navigator.mediaDevices.getUserMedia({video:false, audio:true }).then(stream => {
+        navigator.mediaDevices.getUserMedia({video:false, audio:true }).then(function(stream){
           document.stream=stream;
           room.replaceStream(stream);
-        })
+        });
       }
-    })
+    });
 
 
     $("#comment").keydown(function(e){
@@ -131,8 +131,8 @@ function webrtc(room_id){
         $("#conversation").append($re_temp);
         $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
       }
-    })
-  })
+    });
+  });
 }
 
 function getNowHHMM(){
