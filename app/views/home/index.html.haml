@@ -5,7 +5,8 @@
       .row.heading
         .col-sm-3.col-xs-3.heading-avatar
           .heading-avatar-icon
-            =image_tag current_user.image.to_s
+            -img_url=current_user.image.to_s.presence ||"https://bootdey.com/img/Content/avatar/avatar6.png"
+            =image_tag img_url
         =current_user.name
       .row.searchBox
         .col-sm-12.searchBox-inner
@@ -165,13 +166,13 @@
       .col-sm-2.col-md-1.col-xs-3.heading-avatar
         .heading-avatar-icon
           %img{:src => "https://bootdey.com/img/Content/avatar/avatar6.png"}/
-      .col-sm-8.col-xs-7.heading-name
+      .col-sm-6.col-xs-3.heading-name
         %a.heading-name-meta#room_name
           Roomを選択してください。
         %span.heading-online Online
-      .col-sm-1.col-xs-1.heading-dot.pull-right
-        %i.fa.fa-ellipsis-v.fa-2x.pull-right{"aria-hidden" => "true"}
-      = link_to "ログアウト", destroy_user_session_path, method: :delete, :class => 'navbar-link'
+      .col-sm-2.col-xs-2.pull-right
+        = link_to "ログアウト", destroy_user_session_path, method: :delete
+        = link_to "編集", edit_user_registration_path
     #conversation.row.message
     .row.reply
       .col-sm-9.col-xs-9.reply-main.col-sm-offset-1.col-xs-offset-1
@@ -198,7 +199,7 @@
     = submit_tag '',:id=>"update_left"
   %input{:value=>current_user.id,:id=>"my_user_id"}
   %input{:value=>current_user.name,:id=>"my_name"}
-  %input{:value=>current_user.image.url,:id=>"my_image"}
+  %input{:value=>(current_user.image.url.presence ||"https://bootdey.com/img/Content/avatar/avatar6.png"),:id=>"my_image"}
   %input{:value=>"",:id=>"room_id"}
   #chat_template_sender
     -chat_sample=current_user.chats.build(content:"サンプル");

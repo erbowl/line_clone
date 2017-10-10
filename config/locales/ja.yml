@@ -8,3 +8,6 @@ ja:
         name: 名前
         user_id: ユーザーID
         password: パスワード
+        current_password: 現在のパスワード
+        password_confirmation: パスワードの確認
+        image: プロフィール画像

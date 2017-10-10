@@ -29,7 +29,7 @@ $(function(){
   });
 
   peer.on("error",function(){
-    alert("エラーが発生しました。");
+    alert("既に他の端末でログインしている可能性があります。");
   });
 
   peer.on("open",function(){
@@ -68,23 +68,28 @@ $(function(){
 
 function webrtc(room_id){
   peer=document.peer;
-  var room=peer.joinRoom(room_id,{mode:"sfu",stream:null});
+
+  room=peer.joinRoom(room_id,{mode:"sfu",stream:""});
+
   room.on('open',function(){
-
     $("#start_tell").click(function(){
-      navigator.mediaDevices.getUserMedia({video:false, audio:true }).then(function(stream){
-        document.stream=stream;
-        room.replaceStream(stream);
-      });
-    });
-
-    room.on("stream",function(stream){
-      stream_to_tag(stream);
-      if(!document.stream){
+      if(confirm("電話をかけますか？（相手もこのルームを開いて電話をかける必要があります。）")){
         navigator.mediaDevices.getUserMedia({video:false, audio:true }).then(function(stream){
           document.stream=stream;
           room.replaceStream(stream);
         });
+      }
+    });
+
+    room.on("stream",function(stream){
+      if(window.confirm('電話がかかって来ましたが受けますか？')){
+        stream_to_tag(stream);
+        if(!document.stream){
+          navigator.mediaDevices.getUserMedia({video:false, audio:true }).then(function(my_stream){
+            document.stream=my_stream;
+            room.replaceStream(document.stream);
+          });
+        }
       }
     });
 
@@ -129,7 +134,7 @@ function webrtc(room_id){
         $re_temp.find(".message-text").html(message.replace(/\r?\n/g, "<br>"));
         $re_temp.find(".message-time").text(time);
         $re_temp.find(".chat_name").text(user_name);
-        $re_temp.find(".chat_image>img").src(image);
+        $re_temp.find(".chat_image>img")[0].src=image;
 
         $("#conversation").append($re_temp);
         $('#conversation').animate({scrollTop: $('#conversation')[0].scrollHeight}, 'fast');
